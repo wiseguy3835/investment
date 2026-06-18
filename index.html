@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的基金損益</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2330;--border:#30363d;--text:#e6edf3;--dim:#8b949e;--green:#3fb950;--green-bg:rgba(63,185,80,.12);--red:#f85149;--red-bg:rgba(248,81,73,.12);--accent:#58a6ff;--gold:#d4a843}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;min-height:100vh;padding-bottom:48px}
+  .header{background:var(--bg);border-bottom:1px solid var(--border);padding:18px 16px 14px;position:sticky;top:0;z-index:10}
+  .header-row{display:flex;justify-content:space-between;align-items:center;max-width:680px;margin:0 auto}
+  h1{font-size:17px;font-weight:600} h1 span{color:var(--gold)}
+  .btn{background:var(--surface2);border:1px solid var(--border);color:var(--dim);padding:7px 14px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;transition:all .2s}
+  .btn:hover{border-color:var(--accent);color:var(--accent)} .btn:disabled{opacity:.5;cursor:not-allowed}
+  .ts{font-size:11px;color:var(--dim);margin-top:5px;max-width:680px;margin-left:auto;margin-right:auto}
+  .summary{max-width:680px;margin:16px auto 0;padding:0 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .sc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px}
+  .sc.wide{grid-column:span 2}
+  .sl{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+  .sv{font-size:21px;font-weight:700;font-family:monospace}
+  .ss{font-size:12px;color:var(--dim);margin-top:4px}
+  .cards{max-width:680px;margin:14px auto 0;padding:0 16px;display:flex;flex-direction:column;gap:12px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+  .ch{padding:14px 16px 12px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--border);gap:10px}
+  .fn{font-size:15px;font-weight:600}
+  .ft{font-size:11px;color:var(--dim);background:var(--surface2);border:1px solid var(--border);padding:2px 8px;border-radius:6px;margin-top:5px;display:inline-block}
+  .nb{text-align:right;flex-shrink:0}
+  .nv{font-size:22px;font-weight:700;font-family:monospace}
+  .nd{font-size:11px;color:var(--dim);margin-top:1px}
+  .badge{display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;margin-top:5px}
+  .up{color:var(--green);background:var(--green-bg)} .dn{color:var(--red);background:var(--red-bg)}
+  .cb{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .sl2{font-size:11px;color:var(--dim);margin-bottom:4px}
+  .sv2{font-size:15px;font-weight:600;font-family:monospace}
+  .profit{color:var(--green)} .loss{color:var(--red)} .neut{color:var(--text)}
+  .cf{padding:9px 16px;background:var(--surface2);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+  .fl{font-size:11px;color:var(--dim)} .fr{font-size:13px;color:var(--dim);font-family:monospace}
+  .loading{display:flex;align-items:center;justify-content:center;min-height:100px;color:var(--dim);font-size:13px;gap:8px}
+  .spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .err{background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.3);border-radius:10px;padding:16px;color:var(--red);font-size:13px;line-height:1.7;text-align:center}
+  .note{max-width:680px;margin:20px auto 0;padding:0 16px;font-size:11px;color:var(--dim);text-align:center;line-height:1.8}
+  .manual-panel{max-width:680px;margin:14px auto 0;padding:0 16px}
+  .manual-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+  .manual-title{font-size:13px;font-weight:600;color:var(--dim);margin-bottom:12px}
+  .input-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+  .input-label{font-size:12px;color:var(--dim);width:100px;flex-shrink:0}
+  .nav-input{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;font-size:14px;font-family:monospace;width:110px}
+  .nav-input:focus{outline:none;border-color:var(--accent)}
+  .apply-btn{background:var(--accent);border:none;color:#fff;padding:7px 16px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;font-weight:600;margin-top:4px}
+  .apply-btn:hover{opacity:.85}
+  .toggle-manual{font-size:12px;color:var(--accent);cursor:pointer;margin-left:8px;text-decoration:underline;background:none;border:none;font-family:inherit}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-row">
+    <h1>📈 我的基金 <span>損益追蹤</span></h1>
+    <div>
+      <button class="btn" id="btn" onclick="loadAll()">⟳ 更新淨值</button>
+      <button class="toggle-manual" onclick="toggleManual()">手動輸入</button>
+    </div>
+  </div>
+  <div class="ts" id="ts">載入中...</div>
+</div>
+<div class="summary">
+  <div class="sc"><div class="sl">總投入成本</div><div class="sv neut" id="sCost">—</div><div class="ss">三筆合計</div></div>
+  <div class="sc"><div class="sl">目前總市值</div><div class="sv" id="sMV">—</div><div class="ss" id="sMVsub">—</div></div>
+  <div class="sc wide"><div class="sl">總損益</div><div class="sv" id="sPnL">—</div><div class="ss" id="sPct">—</div></div>
+</div>
+<div class="manual-panel" id="manualPanel" style="display:none">
+  <div class="manual-box">
+    <div class="manual-title">📝 手動輸入今日淨值（從統一投信 App 查看後填入）</div>
+    <div class="input-row">
+      <span class="input-label">奔騰基金</span>
+      <input class="nav-input" id="inUNI36today" type="number" step="0.01" placeholder="今日淨值">
+      <span style="font-size:12px;color:var(--dim)">昨日:</span>
+      <input class="nav-input" id="inUNI36yest" type="number" step="0.01" placeholder="昨日淨值" style="width:90px">
+    </div>
+    <div class="input-row">
+      <span class="input-label">統信基金</span>
+      <input class="nav-input" id="inUNI28today" type="number" step="0.01" placeholder="今日淨值">
+      <span style="font-size:12px;color:var(--dim)">昨日:</span>
+      <input class="nav-input" id="inUNI28yest" type="number" step="0.01" placeholder="昨日淨值" style="width:90px">
+    </div>
+    <button class="apply-btn" onclick="applyManual()">套用計算</button>
+  </div>
+</div>
+<div class="cards" id="cards">
+  <div class="loading"><div class="spin"></div> 正在抓取最新淨值...</div>
+</div>
+<div class="note">
+  淨值資料來源：統一投信（via stockq.org）。每日收盤後更新，僅供參考。<br>
+  實際損益請以統一投信官方為準。
+</div>
+
+<script>
+const GAS = 'https://script.google.com/macros/s/AKfycbxe1pWD-315Pq3FfYjoSexxbMkSGgKr8UcqTi8jCmpEbgOon1ulX-hPGOtBaK5ZLA4q1Q/exec';
+const H = [
+  {fund:'UNI36',name:'統一奔騰基金',tag:'定期定額・每月5日 $10,000',units:832.98,cost:250000},
+  {fund:'UNI36',name:'統一奔騰基金',tag:'單筆申購・2026/06/08',units:26.93,cost:20000},
+  {fund:'UNI28',name:'統一統信基金',tag:'定期定額・每月1日 $8,000',units:2035.68,cost:224000}
+];
+const comma=n=>Math.round(n).toLocaleString('zh-TW');
+const dec=(n,d=2)=>(+n).toLocaleString('zh-TW',{minimumFractionDigits:d,maximumFractionDigits:4});
+const sign=n=>n>=0?'+':'';
+const pc=n=>n>=0?'profit':'loss';
+const bc=n=>n>=0?'up':'dn';
+const ar=n=>n>=0?'▲':'▼';
+
+function makeCard(h,nav){
+  const mv=nav.today*h.units,pnl=mv-h.cost,pct=(pnl/h.cost)*100;
+  const change=nav.today-nav.yesterday,changePct=(change/nav.yesterday)*100,dp=change*h.units;
+  return `<div class="card"><div class="ch"><div><div class="fn">${h.name}</div><div class="ft">${h.tag}</div></div><div class="nb"><div class="nv">${dec(nav.today)}</div><div class="nd">${nav.todayDate} 淨值</div><div class="badge ${bc(change)}">${ar(change)} ${sign(change)}${dec(Math.abs(change))} (${sign(changePct)}${changePct.toFixed(2)}%)</div></div></div><div class="cb"><div><div class="sl2">今日損益</div><div class="sv2 ${pc(dp)}">${sign(dp)}$${comma(Math.abs(dp))}</div></div><div><div class="sl2">目前市值</div><div class="sv2 neut">$${comma(mv)}</div></div><div><div class="sl2">投入成本</div><div class="sv2 neut">$${comma(h.cost)}</div></div><div><div class="sl2">總損益</div><div class="sv2 ${pc(pnl)}">${sign(pnl)}$${comma(Math.abs(pnl))} <span style="font-size:12px;font-weight:400">(${sign(pct)}${pct.toFixed(2)}%)</span></div></div></div><div class="cf"><span class="fl">昨日淨值</span><span class="fr">${dec(nav.yesterday)}　（${nav.yesterdayDate}）</span></div></div>`;
+}
+
+function renderCards(navMap){
+  let tc=0,tv=0,td=0,html='';
+  for(const h of H){
+    const nav=navMap[h.fund]; if(!nav) continue;
+    const mv=nav.today*h.units;
+    tc+=h.cost; tv+=mv; td+=(nav.today-nav.yesterday)*h.units;
+    html+=makeCard(h,nav);
+  }
+  const tp=tv-tc,tpct=(tp/tc)*100;
+  document.getElementById('sCost').textContent=`$${comma(tc)}`;
+  const mvEl=document.getElementById('sMV');
+  mvEl.textContent=`$${comma(tv)}`; mvEl.className='sv '+pc(tp);
+  document.getElementById('sMVsub').innerHTML=`今日損益 <span class="${pc(td)}">${sign(td)}$${comma(Math.abs(td))}</span>`;
+  const pEl=document.getElementById('sPnL');
+  pEl.textContent=`${sign(tp)}$${comma(Math.abs(tp))}`; pEl.className='sv '+pc(tp);
+  document.getElementById('sPct').innerHTML=`<span class="${pc(tp)}">${sign(tpct)}${tpct.toFixed(2)}%</span> 總報酬率`;
+  document.getElementById('cards').innerHTML=html;
+  const n=new Date();
+  document.getElementById('ts').textContent=`最後更新：${n.getFullYear()}/${String(n.getMonth()+1).padStart(2,'0')}/${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
+}
+
+// JSONP：用 <script> 動態載入，完全繞過 CORS
+function fetchJsonp(fund){
+  return new Promise((resolve,reject)=>{
+    const cb='_cb_'+fund+'_'+Date.now();
+    const s=document.createElement('script');
+    const t=setTimeout(()=>{ cleanup(); reject(new Error('逾時')); },20000);
+    function cleanup(){ clearTimeout(t); delete window[cb]; if(s.parentNode) s.parentNode.removeChild(s); }
+    window[cb]=function(data){ cleanup(); if(data.error) reject(new Error(data.error)); else resolve(data); };
+    // 用完整的 exec URL，加上 cb 參數
+    s.src=GAS+'?fund='+fund+'&cb='+cb;
+    s.onerror=()=>{ cleanup(); reject(new Error('Script 載入失敗')); };
+    document.head.appendChild(s);
+  });
+}
+
+async function loadAll(){
+  const btn=document.getElementById('btn');
+  btn.disabled=true; btn.textContent='抓取中...';
+  document.getElementById('cards').innerHTML='<div class="loading"><div class="spin"></div> 正在抓取最新淨值...</div>';
+  try{
+    const [r36,r28]=await Promise.all([fetchJsonp('UNI36'),fetchJsonp('UNI28')]);
+    renderCards({
+      UNI36:{today:r36.today.nav,yesterday:r36.yesterday.nav,todayDate:r36.today.date,yesterdayDate:r36.yesterday.date},
+      UNI28:{today:r28.today.nav,yesterday:r28.yesterday.nav,todayDate:r28.today.date,yesterdayDate:r28.yesterday.date}
+    });
+  }catch(e){
+    document.getElementById('cards').innerHTML=`<div class="err">⚠️ 自動抓取失敗：${e.message}<br><small style="opacity:.7">請使用「手動輸入」填入今日淨值</small></div>`;
+    document.getElementById('ts').textContent='自動更新失敗';
+    document.getElementById('manualPanel').style.display='block';
+  }
+  btn.disabled=false; btn.textContent='⟳ 更新淨值';
+}
+
+function toggleManual(){
+  const p=document.getElementById('manualPanel');
+  p.style.display=p.style.display==='none'?'block':'none';
+}
+
+function applyManual(){
+  const t36=parseFloat(document.getElementById('inUNI36today').value);
+  const y36=parseFloat(document.getElementById('inUNI36yest').value);
+  const t28=parseFloat(document.getElementById('inUNI28today').value);
+  const y28=parseFloat(document.getElementById('inUNI28yest').value);
+  if(!t36||!y36||!t28||!y28){alert('請填入所有淨值');return;}
+  const n=new Date();
+  const d=`${n.getFullYear()}/${String(n.getMonth()+1).padStart(2,'0')}/${String(n.getDate()).padStart(2,'0')}`;
+  renderCards({
+    UNI36:{today:t36,yesterday:y36,todayDate:d,yesterdayDate:'—'},
+    UNI28:{today:t28,yesterday:y28,todayDate:d,yesterdayDate:'—'}
+  });
+}
+
+loadAll();
+</script>
+</body>
+</html>
