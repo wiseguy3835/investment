@@ -7,7 +7,7 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
   *{box-sizing:border-box;margin:0;padding:0}
-  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2330;--border:#30363d;--text:#e6edf3;--dim:#8b949e;--green:#3fb950;--green-bg:rgba(63,185,80,.12);--red:#f85149;--red-bg:rgba(248,81,73,.12);--accent:#58a6ff;--gold:#d4a843;--orange:#f0883e}
+  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2330;--border:#30363d;--text:#e6edf3;--dim:#8b949e;--green:#f85149;--green-bg:rgba(248,81,73,.12);--red:#3fb950;--red-bg:rgba(63,185,80,.12);--accent:#58a6ff;--gold:#d4a843;--orange:#f0883e}
   body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;min-height:100vh;padding-bottom:60px}
   .header{background:var(--bg);border-bottom:1px solid var(--border);padding:16px 16px 12px;position:sticky;top:0;z-index:10}
   .header-row{display:flex;justify-content:space-between;align-items:center;max-width:720px;margin:0 auto}
@@ -169,7 +169,7 @@ const DEFAULT_HOLDINGS = [
   { id:1, name:'統一奔騰基金', tag:'定期定額・每月5日 $10,000', code:'UNI36', folder:'ezmoney', units:845.73, cost:260000 },
   { id:2, name:'統一奔騰基金', tag:'單筆申購・2026/06/08', code:'UNI36', folder:'ezmoney', units:26.93, cost:20000 },
   { id:3, name:'統一統信基金', tag:'定期定額・每月1日 $8,000', code:'UNI28', folder:'ezmoney', units:2063.68, cost:232000 },
-  { id:4, name:'安聯AI收益成長多重資產基金', tag:'定期定額・每月5日 $5,000', code:'', folder:'allianz', units:324.7, cost:5000, manualNav:15.49, manualYest:null }
+  { id:4, name:'安聯AI收益成長多重資產基金', tag:'定期定額・每月5日 $5,000', code:'ACDD144', folder:'allianz_official', units:324.7, cost:5000 }
 ];
 
 const comma = n => Math.round(n).toLocaleString('zh-TW');
