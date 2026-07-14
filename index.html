@@ -7,188 +7,402 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
   *{box-sizing:border-box;margin:0;padding:0}
-  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2330;--border:#30363d;--text:#e6edf3;--dim:#8b949e;--green:#3fb950;--green-bg:rgba(63,185,80,.12);--red:#f85149;--red-bg:rgba(248,81,73,.12);--accent:#58a6ff;--gold:#d4a843}
-  body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;min-height:100vh;padding-bottom:48px}
-  .header{background:var(--bg);border-bottom:1px solid var(--border);padding:18px 16px 14px;position:sticky;top:0;z-index:10}
-  .header-row{display:flex;justify-content:space-between;align-items:center;max-width:680px;margin:0 auto}
+  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2330;--border:#30363d;--text:#e6edf3;--dim:#8b949e;--green:#3fb950;--green-bg:rgba(63,185,80,.12);--red:#f85149;--red-bg:rgba(248,81,73,.12);--accent:#58a6ff;--gold:#d4a843;--orange:#f0883e}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;min-height:100vh;padding-bottom:60px}
+  .header{background:var(--bg);border-bottom:1px solid var(--border);padding:16px 16px 12px;position:sticky;top:0;z-index:10}
+  .header-row{display:flex;justify-content:space-between;align-items:center;max-width:720px;margin:0 auto}
   h1{font-size:17px;font-weight:600} h1 span{color:var(--gold)}
-  .btn{background:var(--surface2);border:1px solid var(--border);color:var(--dim);padding:7px 14px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;transition:all .2s}
+  .hbtns{display:flex;gap:8px;align-items:center}
+  .btn{background:var(--surface2);border:1px solid var(--border);color:var(--dim);padding:6px 13px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;transition:all .2s}
   .btn:hover{border-color:var(--accent);color:var(--accent)} .btn:disabled{opacity:.5;cursor:not-allowed}
-  .ts{font-size:11px;color:var(--dim);margin-top:5px;max-width:680px;margin-left:auto;margin-right:auto}
-  .summary{max-width:680px;margin:16px auto 0;padding:0 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .btn-orange{background:rgba(240,136,62,.12);border-color:var(--orange);color:var(--orange)}
+  .btn-orange:hover{background:rgba(240,136,62,.2)}
+  .ts{font-size:11px;color:var(--dim);margin-top:5px;max-width:720px;margin-left:auto;margin-right:auto}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px}
+  /* Summary */
+  .summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
   .sc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px}
   .sc.wide{grid-column:span 2}
   .sl{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-  .sv{font-size:21px;font-weight:700;font-family:monospace}
+  .sv{font-size:20px;font-weight:700;font-family:monospace}
   .ss{font-size:12px;color:var(--dim);margin-top:4px}
-  .cards{max-width:680px;margin:14px auto 0;padding:0 16px;display:flex;flex-direction:column;gap:12px}
+  /* Cards */
+  .cards{display:flex;flex-direction:column;gap:12px;margin-top:14px}
   .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-  .ch{padding:14px 16px 12px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--border);gap:10px}
-  .fn{font-size:15px;font-weight:600}
-  .ft{font-size:11px;color:var(--dim);background:var(--surface2);border:1px solid var(--border);padding:2px 8px;border-radius:6px;margin-top:5px;display:inline-block}
+  .ch{padding:13px 15px 11px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--border);gap:10px}
+  .fn{font-size:14px;font-weight:600;line-height:1.4}
+  .ft{font-size:11px;color:var(--dim);background:var(--surface2);border:1px solid var(--border);padding:2px 7px;border-radius:5px;margin-top:4px;display:inline-block}
   .nb{text-align:right;flex-shrink:0}
-  .nv{font-size:22px;font-weight:700;font-family:monospace}
+  .nv{font-size:21px;font-weight:700;font-family:monospace}
   .nd{font-size:11px;color:var(--dim);margin-top:1px}
-  .badge{display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;margin-top:5px}
+  .badge{display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;margin-top:4px}
   .up{color:var(--green);background:var(--green-bg)} .dn{color:var(--red);background:var(--red-bg)}
-  .cb{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .sl2{font-size:11px;color:var(--dim);margin-bottom:4px}
-  .sv2{font-size:15px;font-weight:600;font-family:monospace}
+  .cb{padding:13px 15px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .sl2{font-size:11px;color:var(--dim);margin-bottom:3px}
+  .sv2{font-size:14px;font-weight:600;font-family:monospace}
   .profit{color:var(--green)} .loss{color:var(--red)} .neut{color:var(--text)}
-  .cf{padding:9px 16px;background:var(--surface2);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-  .fl{font-size:11px;color:var(--dim)} .fr{font-size:13px;color:var(--dim);font-family:monospace}
-  .loading{display:flex;align-items:center;justify-content:center;min-height:100px;color:var(--dim);font-size:13px;gap:8px}
-  .spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+  .cf{padding:8px 15px;background:var(--surface2);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+  .fl{font-size:11px;color:var(--dim)} .fr{font-size:12px;color:var(--dim);font-family:monospace}
+  /* 手動badge */
+  .manual-badge{font-size:10px;background:rgba(240,136,62,.15);color:var(--orange);border:1px solid rgba(240,136,62,.3);padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+  /* Loading/Error */
+  .loading{display:flex;align-items:center;justify-content:center;min-height:80px;color:var(--dim);font-size:13px;gap:8px}
+  .spin{width:15px;height:15px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
-  .err{background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.3);border-radius:10px;padding:16px;color:var(--red);font-size:13px;line-height:1.7;text-align:center}
-  .note{max-width:680px;margin:20px auto 0;padding:0 16px;font-size:11px;color:var(--dim);text-align:center;line-height:1.8}
-  .manual-panel{max-width:680px;margin:14px auto 0;padding:0 16px}
-  .manual-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
-  .manual-title{font-size:13px;font-weight:600;color:var(--dim);margin-bottom:12px}
-  .input-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
-  .input-label{font-size:12px;color:var(--dim);width:100px;flex-shrink:0}
-  .nav-input{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;font-size:14px;font-family:monospace;width:110px}
-  .nav-input:focus{outline:none;border-color:var(--accent)}
-  .apply-btn{background:var(--accent);border:none;color:#fff;padding:7px 16px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;font-weight:600;margin-top:4px}
-  .apply-btn:hover{opacity:.85}
-  .toggle-manual{font-size:12px;color:var(--accent);cursor:pointer;margin-left:8px;text-decoration:underline;background:none;border:none;font-family:inherit}
+  .err{background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.3);border-radius:10px;padding:14px;color:var(--red);font-size:13px;line-height:1.7;text-align:center}
+  .note{font-size:11px;color:var(--dim);text-align:center;line-height:1.8;margin-top:20px}
+
+  /* ── 設定面板 ── */
+  .panel-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:flex-end;justify-content:center}
+  .panel-overlay.open{display:flex}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:16px 16px 0 0;width:100%;max-width:720px;max-height:90vh;overflow-y:auto;padding:20px 16px 32px}
+  .panel-title{font-size:16px;font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+  .close-btn{background:none;border:none;color:var(--dim);font-size:22px;cursor:pointer;line-height:1}
+  /* 持倉列表 */
+  .holding-item{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px}
+  .hi-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+  .hi-name{font-size:13px;font-weight:600}
+  .hi-tag{font-size:11px;color:var(--dim);margin-top:2px}
+  .del-btn{background:var(--red-bg);border:1px solid rgba(248,81,73,.3);color:var(--red);padding:3px 10px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit;flex-shrink:0}
+  .hi-fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .field label{font-size:11px;color:var(--dim);display:block;margin-bottom:3px}
+  .field input,.field select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:6px;font-size:13px;font-family:monospace}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--accent)}
+  /* 新增按鈕 */
+  .add-form{background:var(--surface2);border:1px dashed var(--border);border-radius:10px;padding:14px;margin-top:12px}
+  .add-title{font-size:13px;color:var(--dim);margin-bottom:12px;font-weight:500}
+  .add-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+  .add-fields-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+  .save-btn{background:var(--green);border:none;color:#000;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;margin-top:6px}
+  .save-btn:hover{opacity:.85}
+  .add-btn{background:var(--accent);border:none;color:#000;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
+  .add-btn:hover{opacity:.85}
 </style>
 </head>
 <body>
 <div class="header">
   <div class="header-row">
     <h1>📈 我的基金 <span>損益追蹤</span></h1>
-    <div>
-      <button class="btn" id="btn" onclick="loadAll()">⟳ 更新淨值</button>
-      <button class="toggle-manual" onclick="toggleManual()">手動輸入</button>
+    <div class="hbtns">
+      <button class="btn" id="refreshBtn" onclick="loadAll()">⟳ 更新淨值</button>
+      <button class="btn btn-orange" onclick="openPanel()">⚙ 管理持倉</button>
     </div>
   </div>
   <div class="ts" id="ts">載入中...</div>
 </div>
-<div class="summary">
-  <div class="sc"><div class="sl">總投入成本</div><div class="sv neut" id="sCost">—</div><div class="ss">三筆合計</div></div>
-  <div class="sc"><div class="sl">目前總市值</div><div class="sv" id="sMV">—</div><div class="ss" id="sMVsub">—</div></div>
-  <div class="sc wide"><div class="sl">總損益</div><div class="sv" id="sPnL">—</div><div class="ss" id="sPct">—</div></div>
-</div>
-<div class="manual-panel" id="manualPanel" style="display:none">
-  <div class="manual-box">
-    <div class="manual-title">📝 手動輸入今日淨值（從統一投信 App 查看後填入）</div>
-    <div class="input-row">
-      <span class="input-label">奔騰基金</span>
-      <input class="nav-input" id="inUNI36today" type="number" step="0.01" placeholder="今日淨值">
-      <span style="font-size:12px;color:var(--dim)">昨日:</span>
-      <input class="nav-input" id="inUNI36yest" type="number" step="0.01" placeholder="昨日淨值" style="width:90px">
-    </div>
-    <div class="input-row">
-      <span class="input-label">統信基金</span>
-      <input class="nav-input" id="inUNI28today" type="number" step="0.01" placeholder="今日淨值">
-      <span style="font-size:12px;color:var(--dim)">昨日:</span>
-      <input class="nav-input" id="inUNI28yest" type="number" step="0.01" placeholder="昨日淨值" style="width:90px">
-    </div>
-    <button class="apply-btn" onclick="applyManual()">套用計算</button>
+
+<div class="wrap">
+  <div class="summary">
+    <div class="sc"><div class="sl">總投入成本</div><div class="sv neut" id="sCost">—</div><div class="ss">全部合計</div></div>
+    <div class="sc"><div class="sl">目前總市值</div><div class="sv" id="sMV">—</div><div class="ss" id="sMVsub">—</div></div>
+    <div class="sc wide"><div class="sl">總損益</div><div class="sv" id="sPnL">—</div><div class="ss" id="sPct">—</div></div>
   </div>
+  <div class="cards" id="cards">
+    <div class="loading"><div class="spin"></div> 正在抓取最新淨值...</div>
+  </div>
+  <div class="note">淨值資料來源：統一投信、安聯投信（via stockq.org）。每日收盤後更新，僅供參考。</div>
 </div>
-<div class="cards" id="cards">
-  <div class="loading"><div class="spin"></div> 正在抓取最新淨值...</div>
-</div>
-<div class="note">
-  淨值資料來源：統一投信（via stockq.org）。每日收盤後更新，僅供參考。<br>
-  實際損益請以統一投信官方為準。
+
+<!-- 設定面板 -->
+<div class="panel-overlay" id="panelOverlay" onclick="overlayClick(event)">
+  <div class="panel">
+    <div class="panel-title">
+      <span>⚙ 管理持倉</span>
+      <button class="close-btn" onclick="closePanel()">✕</button>
+    </div>
+    <div id="holdingList"></div>
+
+    <!-- 新增持倉 -->
+    <div class="add-form">
+      <div class="add-title">＋ 新增持倉</div>
+      <div class="add-fields">
+        <div class="field">
+          <label>基金名稱</label>
+          <input id="newName" placeholder="例：統一奔騰基金">
+        </div>
+        <div class="field">
+          <label>標籤說明</label>
+          <input id="newTag" placeholder="例：定期定額・每月5日">
+        </div>
+      </div>
+      <div class="add-fields">
+        <div class="field">
+          <label>stockq 代碼</label>
+          <input id="newCode" placeholder="例：UNI36">
+        </div>
+        <div class="field">
+          <label>stockq 資料夾</label>
+          <select id="newFolder">
+            <option value="ezmoney">ezmoney（統一）</option>
+            <option value="allianz">allianz（安聯）</option>
+            <option value="jpmorgan">jpmorgan（摩根）</option>
+            <option value="pru">pru（保德信）</option>
+          </select>
+        </div>
+      </div>
+      <div class="add-fields-3">
+        <div class="field">
+          <label>庫存單位數</label>
+          <input id="newUnits" type="number" step="0.01" placeholder="例：832.98">
+        </div>
+        <div class="field">
+          <label>庫存成本（元）</label>
+          <input id="newCost" type="number" placeholder="例：250000">
+        </div>
+        <div class="field">
+          <label>今日淨值（選填）</label>
+          <input id="newNavToday" type="number" step="0.01" placeholder="自動抓取">
+        </div>
+      </div>
+      <button class="add-btn" onclick="addHolding()">新增</button>
+    </div>
+
+    <button class="save-btn" onclick="saveAndClose()">✓ 儲存並關閉</button>
+  </div>
 </div>
 
 <script>
 const GAS = 'https://script.google.com/macros/s/AKfycbxe1pWD-315Pq3FfYjoSexxbMkSGgKr8UcqTi8jCmpEbgOon1ulX-hPGOtBaK5ZLA4q1Q/exec';
-const H = [
-  {fund:'UNI36',name:'統一奔騰基金',tag:'定期定額・每月5日 $10,000',units:832.98,cost:250000},
-  {fund:'UNI36',name:'統一奔騰基金',tag:'單筆申購・2026/06/08',units:26.93,cost:20000},
-  {fund:'UNI28',name:'統一統信基金',tag:'定期定額・每月1日 $8,000',units:2035.68,cost:224000}
+
+// 預設持倉（含新增的安聯）
+const DEFAULT_HOLDINGS = [
+  { id:1, name:'統一奔騰基金', tag:'定期定額・每月5日 $10,000', code:'UNI36', folder:'ezmoney', units:845.73, cost:260000 },
+  { id:2, name:'統一奔騰基金', tag:'單筆申購・2026/06/08', code:'UNI36', folder:'ezmoney', units:26.93, cost:20000 },
+  { id:3, name:'統一統信基金', tag:'定期定額・每月1日 $8,000', code:'UNI28', folder:'ezmoney', units:2063.68, cost:232000 },
+  { id:4, name:'安聯AI收益成長多重資產基金', tag:'定期定額・每月5日 $5,000', code:'', folder:'allianz', units:324.7, cost:5000, manualNav:15.49, manualYest:null }
 ];
-const comma=n=>Math.round(n).toLocaleString('zh-TW');
-const dec=(n,d=2)=>(+n).toLocaleString('zh-TW',{minimumFractionDigits:d,maximumFractionDigits:4});
-const sign=n=>n>=0?'+':'';
-const pc=n=>n>=0?'profit':'loss';
-const bc=n=>n>=0?'up':'dn';
-const ar=n=>n>=0?'▲':'▼';
 
-function makeCard(h,nav){
-  const mv=nav.today*h.units,pnl=mv-h.cost,pct=(pnl/h.cost)*100;
-  const change=nav.today-nav.yesterday,changePct=(change/nav.yesterday)*100,dp=change*h.units;
-  return `<div class="card"><div class="ch"><div><div class="fn">${h.name}</div><div class="ft">${h.tag}</div></div><div class="nb"><div class="nv">${dec(nav.today)}</div><div class="nd">${nav.todayDate} 淨值</div><div class="badge ${bc(change)}">${ar(change)} ${sign(change)}${dec(Math.abs(change))} (${sign(changePct)}${changePct.toFixed(2)}%)</div></div></div><div class="cb"><div><div class="sl2">今日損益</div><div class="sv2 ${pc(dp)}">${sign(dp)}$${comma(Math.abs(dp))}</div></div><div><div class="sl2">目前市值</div><div class="sv2 neut">$${comma(mv)}</div></div><div><div class="sl2">投入成本</div><div class="sv2 neut">$${comma(h.cost)}</div></div><div><div class="sl2">總損益</div><div class="sv2 ${pc(pnl)}">${sign(pnl)}$${comma(Math.abs(pnl))} <span style="font-size:12px;font-weight:400">(${sign(pct)}${pct.toFixed(2)}%)</span></div></div></div><div class="cf"><span class="fl">昨日淨值</span><span class="fr">${dec(nav.yesterday)}　（${nav.yesterdayDate}）</span></div></div>`;
+const comma = n => Math.round(n).toLocaleString('zh-TW');
+const dec = (n,d=2) => (+n).toLocaleString('zh-TW',{minimumFractionDigits:d,maximumFractionDigits:4});
+const sign = n => n>=0?'+':'';
+const pc = n => n>=0?'profit':'loss';
+const bc = n => n>=0?'up':'dn';
+const ar = n => n>=0?'▲':'▼';
+
+// 載入持倉
+function getHoldings() {
+  try {
+    const s = localStorage.getItem('holdings_v2');
+    return s ? JSON.parse(s) : DEFAULT_HOLDINGS;
+  } catch(e) { return DEFAULT_HOLDINGS; }
+}
+function saveHoldings(h) {
+  localStorage.setItem('holdings_v2', JSON.stringify(h));
 }
 
-function renderCards(navMap){
-  let tc=0,tv=0,td=0,html='';
-  for(const h of H){
-    const nav=navMap[h.fund]; if(!nav) continue;
-    const mv=nav.today*h.units;
-    tc+=h.cost; tv+=mv; td+=(nav.today-nav.yesterday)*h.units;
-    html+=makeCard(h,nav);
-  }
-  const tp=tv-tc,tpct=(tp/tc)*100;
-  document.getElementById('sCost').textContent=`$${comma(tc)}`;
-  const mvEl=document.getElementById('sMV');
-  mvEl.textContent=`$${comma(tv)}`; mvEl.className='sv '+pc(tp);
-  document.getElementById('sMVsub').innerHTML=`今日損益 <span class="${pc(td)}">${sign(td)}$${comma(Math.abs(td))}</span>`;
-  const pEl=document.getElementById('sPnL');
-  pEl.textContent=`${sign(tp)}$${comma(Math.abs(tp))}`; pEl.className='sv '+pc(tp);
-  document.getElementById('sPct').innerHTML=`<span class="${pc(tp)}">${sign(tpct)}${tpct.toFixed(2)}%</span> 總報酬率`;
-  document.getElementById('cards').innerHTML=html;
-  const n=new Date();
-  document.getElementById('ts').textContent=`最後更新：${n.getFullYear()}/${String(n.getMonth()+1).padStart(2,'0')}/${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
+// 今日手動淨值快取（存在 sessionStorage，重整就清）
+function getManualNavs() {
+  try { return JSON.parse(sessionStorage.getItem('manualNavs')||'{}'); } catch(e){return {};}
+}
+function setManualNav(code, data) {
+  const m = getManualNavs(); m[code] = data;
+  sessionStorage.setItem('manualNavs', JSON.stringify(m));
 }
 
-// JSONP：用 <script> 動態載入，完全繞過 CORS
-function fetchJsonp(fund){
-  return new Promise((resolve,reject)=>{
-    const cb='_cb_'+fund+'_'+Date.now();
-    const s=document.createElement('script');
-    const t=setTimeout(()=>{ cleanup(); reject(new Error('逾時')); },20000);
-    function cleanup(){ clearTimeout(t); delete window[cb]; if(s.parentNode) s.parentNode.removeChild(s); }
-    window[cb]=function(data){ cleanup(); if(data.error) reject(new Error(data.error)); else resolve(data); };
-    // 用完整的 exec URL，加上 cb 參數
-    s.src=GAS+'?fund='+fund+'&cb='+cb;
-    s.onerror=()=>{ cleanup(); reject(new Error('Script 載入失敗')); };
+// JSONP 抓淨值
+function fetchJsonp(code, folder) {
+  return new Promise((resolve, reject) => {
+    if (!code) { reject(new Error('無代碼')); return; }
+    const cb = '_cb_' + code + '_' + Date.now();
+    const s = document.createElement('script');
+    const t = setTimeout(() => { cleanup(); reject(new Error('逾時')); }, 20000);
+    function cleanup() { clearTimeout(t); delete window[cb]; if(s.parentNode) s.parentNode.removeChild(s); }
+    window[cb] = function(data) { cleanup(); if(data.error) reject(new Error(data.error)); else resolve(data); };
+    s.src = GAS + '?code=' + code + '&folder=' + folder + '&cb=' + cb;
+    s.onerror = () => { cleanup(); reject(new Error('載入失敗')); };
     document.head.appendChild(s);
   });
 }
 
-async function loadAll(){
-  const btn=document.getElementById('btn');
-  btn.disabled=true; btn.textContent='抓取中...';
-  document.getElementById('cards').innerHTML='<div class="loading"><div class="spin"></div> 正在抓取最新淨值...</div>';
-  try{
-    const [r36,r28]=await Promise.all([fetchJsonp('UNI36'),fetchJsonp('UNI28')]);
-    renderCards({
-      UNI36:{today:r36.today.nav,yesterday:r36.yesterday.nav,todayDate:r36.today.date,yesterdayDate:r36.yesterday.date},
-      UNI28:{today:r28.today.nav,yesterday:r28.yesterday.nav,todayDate:r28.today.date,yesterdayDate:r28.yesterday.date}
-    });
-  }catch(e){
-    document.getElementById('cards').innerHTML=`<div class="err">⚠️ 自動抓取失敗：${e.message}<br><small style="opacity:.7">請使用「手動輸入」填入今日淨值</small></div>`;
-    document.getElementById('ts').textContent='自動更新失敗';
-    document.getElementById('manualPanel').style.display='block';
+function makeCard(h, nav, isManual) {
+  const mv = nav.today * h.units;
+  const pnl = mv - h.cost;
+  const pct = (pnl / h.cost) * 100;
+  const change = nav.today - (nav.yesterday || nav.today);
+  const changePct = nav.yesterday ? (change / nav.yesterday) * 100 : 0;
+  const dp = change * h.units;
+  const manualTag = isManual ? '<span class="manual-badge">手動</span>' : '';
+  return `<div class="card">
+  <div class="ch">
+    <div><div class="fn">${h.name}${manualTag}</div><div class="ft">${h.tag}</div></div>
+    <div class="nb">
+      <div class="nv">${dec(nav.today)}</div>
+      <div class="nd">${nav.todayDate||'—'} 淨值</div>
+      ${nav.yesterday ? `<div class="badge ${bc(change)}">${ar(change)} ${sign(change)}${dec(Math.abs(change))} (${sign(changePct)}${changePct.toFixed(2)}%)</div>` : '<div class="badge" style="color:var(--dim);background:var(--surface2)">— 無昨日資料</div>'}
+    </div>
+  </div>
+  <div class="cb">
+    <div><div class="sl2">今日損益</div><div class="sv2 ${pc(dp)}">${sign(dp)}$${comma(Math.abs(dp))}</div></div>
+    <div><div class="sl2">目前市值</div><div class="sv2 neut">$${comma(mv)}</div></div>
+    <div><div class="sl2">投入成本</div><div class="sv2 neut">$${comma(h.cost)}</div></div>
+    <div><div class="sl2">總損益</div><div class="sv2 ${pc(pnl)}">${sign(pnl)}$${comma(Math.abs(pnl))} <span style="font-size:11px;font-weight:400">(${sign(pct)}${pct.toFixed(2)}%)</span></div></div>
+  </div>
+  <div class="cf">
+    <span class="fl">昨日淨值</span>
+    <span class="fr">${nav.yesterday ? dec(nav.yesterday)+'　（'+(nav.yesterdayDate||'—')+'）' : '—'}</span>
+  </div>
+</div>`;
+}
+
+function renderAll(navMap) {
+  const holdings = getHoldings();
+  let tc=0, tv=0, td=0, html='';
+  for (const h of holdings) {
+    const nav = navMap[h.id];
+    if (!nav) continue;
+    const mv = nav.today * h.units;
+    const change = nav.today - (nav.yesterday || nav.today);
+    tc += h.cost; tv += mv; td += change * h.units;
+    html += makeCard(h, nav, nav.isManual);
   }
-  btn.disabled=false; btn.textContent='⟳ 更新淨值';
+  const tp = tv - tc, tpct = (tp/tc)*100;
+  document.getElementById('sCost').textContent = '$'+comma(tc);
+  const mvEl = document.getElementById('sMV');
+  mvEl.textContent = '$'+comma(tv); mvEl.className = 'sv '+pc(tp);
+  document.getElementById('sMVsub').innerHTML = `今日損益 <span class="${pc(td)}">${sign(td)}$${comma(Math.abs(td))}</span>`;
+  const pEl = document.getElementById('sPnL');
+  pEl.textContent = sign(tp)+'$'+comma(Math.abs(tp)); pEl.className = 'sv '+pc(tp);
+  document.getElementById('sPct').innerHTML = `<span class="${pc(tp)}">${sign(tpct)}${tpct.toFixed(2)}%</span> 總報酬率`;
+  document.getElementById('cards').innerHTML = html || '<div class="loading" style="color:var(--dim)">尚無持倉，請點「管理持倉」新增</div>';
+  const n = new Date();
+  document.getElementById('ts').textContent = `最後更新：${n.getFullYear()}/${String(n.getMonth()+1).padStart(2,'0')}/${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
 }
 
-function toggleManual(){
-  const p=document.getElementById('manualPanel');
-  p.style.display=p.style.display==='none'?'block':'none';
+async function loadAll() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true; btn.textContent = '抓取中...';
+  document.getElementById('cards').innerHTML = '<div class="loading"><div class="spin"></div> 正在抓取最新淨值...</div>';
+
+  const holdings = getHoldings();
+  const manualNavs = getManualNavs();
+
+  // 找出需要抓取的唯一 code+folder 組合
+  const toFetch = {};
+  for (const h of holdings) {
+    if (h.code) toFetch[h.id] = { code: h.code, folder: h.folder || 'ezmoney' };
+  }
+
+  // 同時抓取
+  const fetchPromises = {};
+  const seen = {};
+  for (const [id, info] of Object.entries(toFetch)) {
+    const key = info.folder + '/' + info.code;
+    if (!seen[key]) {
+      seen[key] = fetchJsonp(info.code, info.folder);
+    }
+    fetchPromises[id] = seen[key];
+  }
+
+  const navMap = {};
+  const today = new Date();
+  const todayStr = `${today.getFullYear()}/${String(today.getMonth()+1).padStart(2,'0')}/${String(today.getDate()).padStart(2,'0')}`;
+
+  for (const h of holdings) {
+    if (fetchPromises[h.id]) {
+      try {
+        const r = await fetchPromises[h.id];
+        navMap[h.id] = {
+          today: r.today.nav,
+          yesterday: r.yesterday.nav,
+          todayDate: r.today.date,
+          yesterdayDate: r.yesterday.date,
+          isManual: false
+        };
+      } catch(e) {
+        // 抓取失敗，用手動淨值或上次記錄
+        if (h.manualNav) {
+          navMap[h.id] = { today: h.manualNav, yesterday: h.manualYest, todayDate: todayStr, yesterdayDate: '—', isManual: true };
+        }
+      }
+    } else if (h.manualNav) {
+      // 沒有代碼，用手動淨值
+      navMap[h.id] = { today: h.manualNav, yesterday: h.manualYest, todayDate: todayStr, yesterdayDate: '—', isManual: true };
+    }
+  }
+
+  renderAll(navMap);
+  btn.disabled = false; btn.textContent = '⟳ 更新淨值';
 }
 
-function applyManual(){
-  const t36=parseFloat(document.getElementById('inUNI36today').value);
-  const y36=parseFloat(document.getElementById('inUNI36yest').value);
-  const t28=parseFloat(document.getElementById('inUNI28today').value);
-  const y28=parseFloat(document.getElementById('inUNI28yest').value);
-  if(!t36||!y36||!t28||!y28){alert('請填入所有淨值');return;}
-  const n=new Date();
-  const d=`${n.getFullYear()}/${String(n.getMonth()+1).padStart(2,'0')}/${String(n.getDate()).padStart(2,'0')}`;
-  renderCards({
-    UNI36:{today:t36,yesterday:y36,todayDate:d,yesterdayDate:'—'},
-    UNI28:{today:t28,yesterday:y28,todayDate:d,yesterdayDate:'—'}
-  });
+// ── 設定面板 ──
+function openPanel() {
+  renderHoldingList();
+  document.getElementById('panelOverlay').classList.add('open');
+}
+function closePanel() {
+  document.getElementById('panelOverlay').classList.remove('open');
+}
+function overlayClick(e) {
+  if (e.target === document.getElementById('panelOverlay')) closePanel();
 }
 
+function renderHoldingList() {
+  const holdings = getHoldings();
+  let html = '';
+  for (const h of holdings) {
+    html += `<div class="holding-item" id="hi_${h.id}">
+  <div class="hi-top">
+    <div><div class="hi-name">${h.name}</div><div class="hi-tag">${h.tag}</div></div>
+    <button class="del-btn" onclick="deleteHolding(${h.id})">刪除</button>
+  </div>
+  <div class="hi-fields">
+    <div class="field"><label>庫存單位數</label><input type="number" step="0.01" value="${h.units}" onchange="updateField(${h.id},'units',this.value)"></div>
+    <div class="field"><label>庫存成本（元）</label><input type="number" value="${h.cost}" onchange="updateField(${h.id},'cost',this.value)"></div>
+    <div class="field"><label>手動淨值（選填）</label><input type="number" step="0.01" value="${h.manualNav||''}" placeholder="自動抓" onchange="updateField(${h.id},'manualNav',this.value)"></div>
+  </div>
+</div>`;
+  }
+  document.getElementById('holdingList').innerHTML = html;
+}
+
+let _holdings = null;
+function getEditHoldings() {
+  if (!_holdings) _holdings = JSON.parse(JSON.stringify(getHoldings()));
+  return _holdings;
+}
+
+function updateField(id, field, value) {
+  const h = getEditHoldings().find(x => x.id == id);
+  if (h) h[field] = field === 'manualNav' ? (value ? parseFloat(value) : null) : (isNaN(+value) ? value : +value);
+}
+
+function deleteHolding(id) {
+  if (!confirm('確定要刪除這筆持倉嗎？')) return;
+  _holdings = getEditHoldings().filter(x => x.id != id);
+  renderHoldingList();
+}
+
+function addHolding() {
+  const name = document.getElementById('newName').value.trim();
+  const tag = document.getElementById('newTag').value.trim();
+  const code = document.getElementById('newCode').value.trim();
+  const folder = document.getElementById('newFolder').value;
+  const units = parseFloat(document.getElementById('newUnits').value);
+  const cost = parseFloat(document.getElementById('newCost').value);
+  const navToday = parseFloat(document.getElementById('newNavToday').value);
+
+  if (!name || !units || !cost) { alert('請填入基金名稱、單位數、成本'); return; }
+
+  const h = getEditHoldings();
+  const newId = Math.max(0, ...h.map(x=>x.id)) + 1;
+  h.push({ id: newId, name, tag: tag||'', code: code||'', folder, units, cost, manualNav: isNaN(navToday)?null:navToday, manualYest: null });
+
+  // 清空輸入
+  ['newName','newTag','newCode','newUnits','newCost','newNavToday'].forEach(id => document.getElementById(id).value = '');
+  renderHoldingList();
+}
+
+function saveAndClose() {
+  if (_holdings) {
+    saveHoldings(_holdings);
+    _holdings = null;
+  }
+  closePanel();
+  loadAll();
+}
+
+// Google Apps Script 需要支援 code+folder 參數，在 GAS 裡 URL 改為：
+// https://www.stockq.org/funds/fund/${folder}/${code}.php
 loadAll();
 </script>
 </body>
