@@ -7,7 +7,7 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
   *{box-sizing:border-box;margin:0;padding:0}
-  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2330;--border:#30363d;--text:#e6edf3;--dim:#8b949e;--green:#f85149;--green-bg:rgba(248,81,73,.12);--red:#3fb950;--red-bg:rgba(63,185,80,.12);--accent:#58a6ff;--gold:#d4a843;--orange:#f0883e}
+  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2330;--border:#30363d;--text:#e6edf3;--dim:#8b949e;--green:#3fb950;--green-bg:rgba(63,185,80,.12);--red:#f85149;--red-bg:rgba(248,81,73,.12);--accent:#58a6ff;--gold:#d4a843;--orange:#f0883e}
   body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;min-height:100vh;padding-bottom:60px}
   .header{background:var(--bg);border-bottom:1px solid var(--border);padding:16px 16px 12px;position:sticky;top:0;z-index:10}
   .header-row{display:flex;justify-content:space-between;align-items:center;max-width:720px;margin:0 auto}
@@ -19,14 +19,12 @@
   .btn-orange:hover{background:rgba(240,136,62,.2)}
   .ts{font-size:11px;color:var(--dim);margin-top:5px;max-width:720px;margin-left:auto;margin-right:auto}
   .wrap{max-width:720px;margin:0 auto;padding:0 16px}
-  /* Summary */
   .summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
   .sc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px}
   .sc.wide{grid-column:span 2}
   .sl{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
   .sv{font-size:20px;font-weight:700;font-family:monospace}
   .ss{font-size:12px;color:var(--dim);margin-top:4px}
-  /* Cards */
   .cards{display:flex;flex-direction:column;gap:12px;margin-top:14px}
   .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
   .ch{padding:13px 15px 11px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--border);gap:10px}
@@ -36,29 +34,23 @@
   .nv{font-size:21px;font-weight:700;font-family:monospace}
   .nd{font-size:11px;color:var(--dim);margin-top:1px}
   .badge{display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;margin-top:4px}
-  .up{color:var(--green);background:var(--green-bg)} .dn{color:var(--red);background:var(--red-bg)}
+  .up{color:var(--red);background:var(--red-bg)} .dn{color:var(--green);background:var(--green-bg)}
   .cb{padding:13px 15px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .sl2{font-size:11px;color:var(--dim);margin-bottom:3px}
   .sv2{font-size:14px;font-weight:600;font-family:monospace}
-  .profit{color:var(--green)} .loss{color:var(--red)} .neut{color:var(--text)}
+  .profit{color:var(--red)} .loss{color:var(--green)} .neut{color:var(--text)}
   .cf{padding:8px 15px;background:var(--surface2);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
   .fl{font-size:11px;color:var(--dim)} .fr{font-size:12px;color:var(--dim);font-family:monospace}
-  /* 手動badge */
-  .manual-badge{font-size:10px;background:rgba(240,136,62,.15);color:var(--orange);border:1px solid rgba(240,136,62,.3);padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
-  /* Loading/Error */
   .loading{display:flex;align-items:center;justify-content:center;min-height:80px;color:var(--dim);font-size:13px;gap:8px}
   .spin{width:15px;height:15px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
   .err{background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.3);border-radius:10px;padding:14px;color:var(--red);font-size:13px;line-height:1.7;text-align:center}
   .note{font-size:11px;color:var(--dim);text-align:center;line-height:1.8;margin-top:20px}
-
-  /* ── 設定面板 ── */
   .panel-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:flex-end;justify-content:center}
   .panel-overlay.open{display:flex}
   .panel{background:var(--surface);border:1px solid var(--border);border-radius:16px 16px 0 0;width:100%;max-width:720px;max-height:90vh;overflow-y:auto;padding:20px 16px 32px}
   .panel-title{font-size:16px;font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
   .close-btn{background:none;border:none;color:var(--dim);font-size:22px;cursor:pointer;line-height:1}
-  /* 持倉列表 */
   .holding-item{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px}
   .hi-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
   .hi-name{font-size:13px;font-weight:600}
@@ -68,7 +60,6 @@
   .field label{font-size:11px;color:var(--dim);display:block;margin-bottom:3px}
   .field input,.field select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:6px;font-size:13px;font-family:monospace}
   .field input:focus,.field select:focus{outline:none;border-color:var(--accent)}
-  /* 新增按鈕 */
   .add-form{background:var(--surface2);border:1px dashed var(--border);border-radius:10px;padding:14px;margin-top:12px}
   .add-title{font-size:13px;color:var(--dim);margin-bottom:12px;font-weight:500}
   .add-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
@@ -100,10 +91,9 @@
   <div class="cards" id="cards">
     <div class="loading"><div class="spin"></div> 正在抓取最新淨值...</div>
   </div>
-  <div class="note">淨值資料來源：統一投信、安聯投信（via stockq.org）。每日收盤後更新，僅供參考。</div>
+  <div class="note">淨值資料來源：MoneyDJ、安聯投信。每日收盤後更新，僅供參考。</div>
 </div>
 
-<!-- 設定面板 -->
 <div class="panel-overlay" id="panelOverlay" onclick="overlayClick(event)">
   <div class="panel">
     <div class="panel-title">
@@ -111,124 +101,66 @@
       <button class="close-btn" onclick="closePanel()">✕</button>
     </div>
     <div id="holdingList"></div>
-
-    <!-- 新增持倉 -->
     <div class="add-form">
       <div class="add-title">＋ 新增持倉</div>
       <div class="add-fields">
-        <div class="field">
-          <label>基金名稱</label>
-          <input id="newName" placeholder="例：統一奔騰基金">
-        </div>
-        <div class="field">
-          <label>標籤說明</label>
-          <input id="newTag" placeholder="例：定期定額・每月5日">
-        </div>
+        <div class="field"><label>基金名稱</label><input id="newName" placeholder="例：統一奔騰基金"></div>
+        <div class="field"><label>標籤說明</label><input id="newTag" placeholder="例：定期定額・每月5日"></div>
       </div>
       <div class="add-fields">
-        <div class="field">
-          <label>stockq 代碼</label>
-          <input id="newCode" placeholder="例：UNI36">
-        </div>
-        <div class="field">
-          <label>stockq 資料夾</label>
+        <div class="field"><label>MoneyDJ 代碼</label><input id="newCode" placeholder="例：UNI36"></div>
+        <div class="field"><label>類型</label>
           <select id="newFolder">
-            <option value="ezmoney">ezmoney（統一）</option>
-            <option value="allianz">allianz（安聯）</option>
-            <option value="jpmorgan">jpmorgan（摩根）</option>
-            <option value="pru">pru（保德信）</option>
+            <option value="ezmoney">ezmoney（統一/一般）</option>
+            <option value="allianz_official">allianz_official（安聯）</option>
           </select>
         </div>
       </div>
       <div class="add-fields-3">
-        <div class="field">
-          <label>庫存單位數</label>
-          <input id="newUnits" type="number" step="0.01" placeholder="例：832.98">
-        </div>
-        <div class="field">
-          <label>庫存成本（元）</label>
-          <input id="newCost" type="number" placeholder="例：250000">
-        </div>
-        <div class="field">
-          <label>今日淨值（選填）</label>
-          <input id="newNavToday" type="number" step="0.01" placeholder="自動抓取">
-        </div>
+        <div class="field"><label>庫存單位數</label><input id="newUnits" type="number" step="0.01" placeholder="例：872.49"></div>
+        <div class="field"><label>庫存成本（元）</label><input id="newCost" type="number" placeholder="例：280000"></div>
+        <div class="field"><label>手動淨值（選填）</label><input id="newNavToday" type="number" step="0.01" placeholder="自動抓取"></div>
       </div>
       <button class="add-btn" onclick="addHolding()">新增</button>
     </div>
-
     <button class="save-btn" onclick="saveAndClose()">✓ 儲存並關閉</button>
   </div>
 </div>
 
 <script>
-const GAS = 'https://script.google.com/macros/s/AKfycbwP4LxnZxQ-ZACiwLaYeDN9ejpGQrlHNu_npthQBz1znhrbQ4JmSt36XTawMzl3Owi_Zg/exec';
+const GAS = 'https://script.google.com/macros/s/AKfycbxx7toi5BUVp0NKT5gjh-zAdT0aOMVmZCAzk_NaVo4-QAhteL91W437f2uBjyw4qfpz/exec';
 
-// 預設持倉（含新增的安聯）
 const DEFAULT_HOLDINGS = [
-  { id:1, name:'統一奔騰基金', tag:'定期定額・每月5日 $10,000', code:'UNI36', folder:'ezmoney', units:845.73, cost:260000 },
+  { id:1, name:'統一奔騰基金', tag:'定期定額・每月5日 $10,000', code:'UNI36', folder:'ezmoney', units:872.49, cost:280000 },
   { id:2, name:'統一奔騰基金', tag:'單筆申購・2026/06/08', code:'UNI36', folder:'ezmoney', units:26.93, cost:20000 },
-  { id:3, name:'統一統信基金', tag:'定期定額・每月1日 $8,000', code:'UNI28', folder:'ezmoney', units:2063.68, cost:232000 },
-  { id:4, name:'安聯AI收益成長多重資產基金', tag:'定期定額・每月5日 $5,000', code:'ACDD144', folder:'allianz_official', units:324.7, cost:5000 }
+  { id:3, name:'統一統信基金', tag:'定期定額・每月1日 $8,000', code:'UNI28', folder:'ezmoney', units:2123.51, cost:248000 },
+  { id:4, name:'安聯AI收益成長多重資產基金', tag:'定期定額・每月5日 $5,000', code:'ACDD144', folder:'allianz_official', units:997.8, cost:15000 }
 ];
 
-const comma = n => Math.round(n).toLocaleString('zh-TW');
-const dec = (n,d=2) => (+n).toLocaleString('zh-TW',{minimumFractionDigits:d,maximumFractionDigits:4});
-const sign = n => n>=0?'+':'';
-const pc = n => n>=0?'profit':'loss';
-const bc = n => n>=0?'up':'dn';
-const ar = n => n>=0?'▲':'▼';
+const comma=n=>Math.round(n).toLocaleString('zh-TW');
+const dec=(n,d=2)=>(+n).toLocaleString('zh-TW',{minimumFractionDigits:d,maximumFractionDigits:4});
+const sign=n=>n>=0?'+':'';
+const pc=n=>n>=0?'profit':'loss';
+const bc=n=>n>=0?'up':'dn';
+const ar=n=>n>=0?'▲':'▼';
 
-// 載入持倉
-function getHoldings() {
-  try {
-    const s = localStorage.getItem('holdings_v2');
-    return s ? JSON.parse(s) : DEFAULT_HOLDINGS;
-  } catch(e) { return DEFAULT_HOLDINGS; }
+function getHoldings(){
+  try{ const s=localStorage.getItem('holdings_v2'); return s?JSON.parse(s):DEFAULT_HOLDINGS; }
+  catch(e){ return DEFAULT_HOLDINGS; }
 }
-function saveHoldings(h) {
-  localStorage.setItem('holdings_v2', JSON.stringify(h));
-}
+function saveHoldings(h){ localStorage.setItem('holdings_v2',JSON.stringify(h)); }
 
-// 今日手動淨值快取（存在 sessionStorage，重整就清）
-function getManualNavs() {
-  try { return JSON.parse(sessionStorage.getItem('manualNavs')||'{}'); } catch(e){return {};}
-}
-function setManualNav(code, data) {
-  const m = getManualNavs(); m[code] = data;
-  sessionStorage.setItem('manualNavs', JSON.stringify(m));
-}
-
-// JSONP 抓淨值
-function fetchJsonp(code, folder) {
-  return new Promise((resolve, reject) => {
-    if (!code) { reject(new Error('無代碼')); return; }
-    const cb = '_cb_' + code + '_' + Date.now();
-    const s = document.createElement('script');
-    const t = setTimeout(() => { cleanup(); reject(new Error('逾時')); }, 20000);
-    function cleanup() { clearTimeout(t); delete window[cb]; if(s.parentNode) s.parentNode.removeChild(s); }
-    window[cb] = function(data) { cleanup(); if(data.error) reject(new Error(data.error)); else resolve(data); };
-    s.src = GAS + '?code=' + code + '&folder=' + folder + '&cb=' + cb;
-    s.onerror = () => { cleanup(); reject(new Error('載入失敗')); };
-    document.head.appendChild(s);
-  });
-}
-
-function makeCard(h, nav, isManual) {
-  const mv = nav.today * h.units;
-  const pnl = mv - h.cost;
-  const pct = (pnl / h.cost) * 100;
-  const change = nav.today - (nav.yesterday || nav.today);
-  const changePct = nav.yesterday ? (change / nav.yesterday) * 100 : 0;
-  const dp = change * h.units;
-  const manualTag = isManual ? '<span class="manual-badge">手動</span>' : '';
+function makeCard(h,nav){
+  const mv=nav.today*h.units,pnl=mv-h.cost,pct=(pnl/h.cost)*100;
+  const change=nav.today-nav.yesterday,changePct=nav.yesterday?(change/nav.yesterday)*100:0;
+  const dp=change*h.units;
   return `<div class="card">
   <div class="ch">
-    <div><div class="fn">${h.name}${manualTag}</div><div class="ft">${h.tag}</div></div>
+    <div><div class="fn">${h.name}</div><div class="ft">${h.tag}</div></div>
     <div class="nb">
       <div class="nv">${dec(nav.today)}</div>
-      <div class="nd">${nav.todayDate||'—'} 淨值</div>
-      ${nav.yesterday ? `<div class="badge ${bc(change)}">${ar(change)} ${sign(change)}${dec(Math.abs(change))} (${sign(changePct)}${changePct.toFixed(2)}%)</div>` : '<div class="badge" style="color:var(--dim);background:var(--surface2)">— 無昨日資料</div>'}
+      <div class="nd">${nav.todayDate} 淨值</div>
+      <div class="badge ${bc(change)}">${ar(change)} ${sign(change)}${dec(Math.abs(change))} (${sign(changePct)}${changePct.toFixed(2)}%)</div>
     </div>
   </div>
   <div class="cb">
@@ -237,110 +169,82 @@ function makeCard(h, nav, isManual) {
     <div><div class="sl2">投入成本</div><div class="sv2 neut">$${comma(h.cost)}</div></div>
     <div><div class="sl2">總損益</div><div class="sv2 ${pc(pnl)}">${sign(pnl)}$${comma(Math.abs(pnl))} <span style="font-size:11px;font-weight:400">(${sign(pct)}${pct.toFixed(2)}%)</span></div></div>
   </div>
-  <div class="cf">
-    <span class="fl">昨日淨值</span>
-    <span class="fr">${nav.yesterday ? dec(nav.yesterday)+'　（'+(nav.yesterdayDate||'—')+'）' : '—'}</span>
-  </div>
+  <div class="cf"><span class="fl">昨日淨值</span><span class="fr">${nav.yesterday?dec(nav.yesterday):'—'}　（${nav.yesterdayDate||'—'}）</span></div>
 </div>`;
 }
 
-function renderAll(navMap) {
-  const holdings = getHoldings();
-  let tc=0, tv=0, td=0, html='';
-  for (const h of holdings) {
-    const nav = navMap[h.id];
-    if (!nav) continue;
-    const mv = nav.today * h.units;
-    const change = nav.today - (nav.yesterday || nav.today);
-    tc += h.cost; tv += mv; td += change * h.units;
-    html += makeCard(h, nav, nav.isManual);
+function renderAll(navMap){
+  const holdings=getHoldings();
+  let tc=0,tv=0,td=0,html='';
+  for(const h of holdings){
+    const nav=navMap[h.id];
+    if(!nav) continue;
+    const mv=nav.today*h.units,change=nav.today-(nav.yesterday||nav.today);
+    tc+=h.cost; tv+=mv; td+=change*h.units;
+    html+=makeCard(h,nav);
   }
-  const tp = tv - tc, tpct = (tp/tc)*100;
-  document.getElementById('sCost').textContent = '$'+comma(tc);
-  const mvEl = document.getElementById('sMV');
-  mvEl.textContent = '$'+comma(tv); mvEl.className = 'sv '+pc(tp);
-  document.getElementById('sMVsub').innerHTML = `今日損益 <span class="${pc(td)}">${sign(td)}$${comma(Math.abs(td))}</span>`;
-  const pEl = document.getElementById('sPnL');
-  pEl.textContent = sign(tp)+'$'+comma(Math.abs(tp)); pEl.className = 'sv '+pc(tp);
-  document.getElementById('sPct').innerHTML = `<span class="${pc(tp)}">${sign(tpct)}${tpct.toFixed(2)}%</span> 總報酬率`;
-  document.getElementById('cards').innerHTML = html || '<div class="loading" style="color:var(--dim)">尚無持倉，請點「管理持倉」新增</div>';
-  const n = new Date();
-  document.getElementById('ts').textContent = `最後更新：${n.getFullYear()}/${String(n.getMonth()+1).padStart(2,'0')}/${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
+  const tp=tv-tc,tpct=(tp/tc)*100;
+  document.getElementById('sCost').textContent='$'+comma(tc);
+  const mvEl=document.getElementById('sMV');
+  mvEl.textContent='$'+comma(tv); mvEl.className='sv '+pc(tp);
+  document.getElementById('sMVsub').innerHTML=`今日損益 <span class="${pc(td)}">${sign(td)}$${comma(Math.abs(td))}</span>`;
+  const pEl=document.getElementById('sPnL');
+  pEl.textContent=sign(tp)+'$'+comma(Math.abs(tp)); pEl.className='sv '+pc(tp);
+  document.getElementById('sPct').innerHTML=`<span class="${pc(tp)}">${sign(tpct)}${tpct.toFixed(2)}%</span> 總報酬率`;
+  document.getElementById('cards').innerHTML=html||'<div class="loading" style="color:var(--dim)">尚無持倉</div>';
+  const n=new Date();
+  document.getElementById('ts').textContent=`最後更新：${n.getFullYear()}/${String(n.getMonth()+1).padStart(2,'0')}/${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
 }
 
-async function loadAll() {
-  const btn = document.getElementById('refreshBtn');
-  btn.disabled = true; btn.textContent = '抓取中...';
-  document.getElementById('cards').innerHTML = '<div class="loading"><div class="spin"></div> 正在抓取最新淨值...</div>';
+function fetchJsonp(code,folder){
+  return new Promise((resolve,reject)=>{
+    if(!code){reject(new Error('無代碼'));return;}
+    const cb='_cb_'+code+'_'+Date.now();
+    const s=document.createElement('script');
+    const t=setTimeout(()=>{cleanup();reject(new Error('逾時'));},20000);
+    function cleanup(){clearTimeout(t);delete window[cb];if(s.parentNode)s.parentNode.removeChild(s);}
+    window[cb]=function(data){cleanup();if(data.error)reject(new Error(data.error));else resolve(data);};
+    s.src=GAS+'?code='+code+'&folder='+folder+'&cb='+cb;
+    s.onerror=()=>{cleanup();reject(new Error('載入失敗'));};
+    document.head.appendChild(s);
+  });
+}
 
-  const holdings = getHoldings();
-  const manualNavs = getManualNavs();
-
-  // 找出需要抓取的唯一 code+folder 組合
-  const toFetch = {};
-  for (const h of holdings) {
-    if (h.code) toFetch[h.id] = { code: h.code, folder: h.folder || 'ezmoney' };
+async function loadAll(){
+  const btn=document.getElementById('refreshBtn');
+  btn.disabled=true; btn.textContent='抓取中...';
+  document.getElementById('cards').innerHTML='<div class="loading"><div class="spin"></div> 正在抓取最新淨值...</div>';
+  const holdings=getHoldings();
+  const seen={},promises={};
+  for(const h of holdings){
+    const key=h.folder+'/'+h.code;
+    if(!seen[key]) seen[key]=fetchJsonp(h.code,h.folder);
+    promises[h.id]=seen[key];
   }
-
-  // 同時抓取
-  const fetchPromises = {};
-  const seen = {};
-  for (const [id, info] of Object.entries(toFetch)) {
-    const key = info.folder + '/' + info.code;
-    if (!seen[key]) {
-      seen[key] = fetchJsonp(info.code, info.folder);
-    }
-    fetchPromises[id] = seen[key];
-  }
-
-  const navMap = {};
-  const today = new Date();
-  const todayStr = `${today.getFullYear()}/${String(today.getMonth()+1).padStart(2,'0')}/${String(today.getDate()).padStart(2,'0')}`;
-
-  for (const h of holdings) {
-    if (fetchPromises[h.id]) {
-      try {
-        const r = await fetchPromises[h.id];
-        navMap[h.id] = {
-          today: r.today.nav,
-          yesterday: r.yesterday.nav,
-          todayDate: r.today.date,
-          yesterdayDate: r.yesterday.date,
-          isManual: false
-        };
-      } catch(e) {
-        // 抓取失敗，用手動淨值或上次記錄
-        if (h.manualNav) {
-          navMap[h.id] = { today: h.manualNav, yesterday: h.manualYest, todayDate: todayStr, yesterdayDate: '—', isManual: true };
-        }
-      }
-    } else if (h.manualNav) {
-      // 沒有代碼，用手動淨值
-      navMap[h.id] = { today: h.manualNav, yesterday: h.manualYest, todayDate: todayStr, yesterdayDate: '—', isManual: true };
+  const navMap={};
+  const today=new Date();
+  const todayStr=`${today.getFullYear()}/${String(today.getMonth()+1).padStart(2,'0')}/${String(today.getDate()).padStart(2,'0')}`;
+  for(const h of holdings){
+    try{
+      const r=await promises[h.id];
+      navMap[h.id]={today:r.today.nav,yesterday:r.yesterday.nav,todayDate:r.today.date,yesterdayDate:r.yesterday.date};
+    }catch(e){
+      if(h.manualNav) navMap[h.id]={today:h.manualNav,yesterday:h.manualYest||h.manualNav,todayDate:todayStr,yesterdayDate:'—'};
     }
   }
-
   renderAll(navMap);
-  btn.disabled = false; btn.textContent = '⟳ 更新淨值';
+  btn.disabled=false; btn.textContent='⟳ 更新淨值';
 }
 
-// ── 設定面板 ──
-function openPanel() {
-  renderHoldingList();
-  document.getElementById('panelOverlay').classList.add('open');
-}
-function closePanel() {
-  document.getElementById('panelOverlay').classList.remove('open');
-}
-function overlayClick(e) {
-  if (e.target === document.getElementById('panelOverlay')) closePanel();
-}
+function openPanel(){renderHoldingList();document.getElementById('panelOverlay').classList.add('open');}
+function closePanel(){document.getElementById('panelOverlay').classList.remove('open');}
+function overlayClick(e){if(e.target===document.getElementById('panelOverlay'))closePanel();}
 
-function renderHoldingList() {
-  const holdings = getHoldings();
-  let html = '';
-  for (const h of holdings) {
-    html += `<div class="holding-item" id="hi_${h.id}">
+function renderHoldingList(){
+  const holdings=getHoldings();
+  let html='';
+  for(const h of holdings){
+    html+=`<div class="holding-item" id="hi_${h.id}">
   <div class="hi-top">
     <div><div class="hi-name">${h.name}</div><div class="hi-tag">${h.tag}</div></div>
     <button class="del-btn" onclick="deleteHolding(${h.id})">刪除</button>
@@ -352,57 +256,37 @@ function renderHoldingList() {
   </div>
 </div>`;
   }
-  document.getElementById('holdingList').innerHTML = html;
+  document.getElementById('holdingList').innerHTML=html;
 }
 
-let _holdings = null;
-function getEditHoldings() {
-  if (!_holdings) _holdings = JSON.parse(JSON.stringify(getHoldings()));
-  return _holdings;
+let _holdings=null;
+function getEditHoldings(){if(!_holdings)_holdings=JSON.parse(JSON.stringify(getHoldings()));return _holdings;}
+function updateField(id,field,value){
+  const h=getEditHoldings().find(x=>x.id==id);
+  if(h)h[field]=field==='manualNav'?(value?parseFloat(value):null):(isNaN(+value)?value:+value);
 }
-
-function updateField(id, field, value) {
-  const h = getEditHoldings().find(x => x.id == id);
-  if (h) h[field] = field === 'manualNav' ? (value ? parseFloat(value) : null) : (isNaN(+value) ? value : +value);
-}
-
-function deleteHolding(id) {
-  if (!confirm('確定要刪除這筆持倉嗎？')) return;
-  _holdings = getEditHoldings().filter(x => x.id != id);
+function deleteHolding(id){
+  if(!confirm('確定要刪除這筆持倉嗎？'))return;
+  _holdings=getEditHoldings().filter(x=>x.id!=id);
   renderHoldingList();
 }
-
-function addHolding() {
-  const name = document.getElementById('newName').value.trim();
-  const tag = document.getElementById('newTag').value.trim();
-  const code = document.getElementById('newCode').value.trim();
-  const folder = document.getElementById('newFolder').value;
-  const units = parseFloat(document.getElementById('newUnits').value);
-  const cost = parseFloat(document.getElementById('newCost').value);
-  const navToday = parseFloat(document.getElementById('newNavToday').value);
-
-  if (!name || !units || !cost) { alert('請填入基金名稱、單位數、成本'); return; }
-
-  const h = getEditHoldings();
-  const newId = Math.max(0, ...h.map(x=>x.id)) + 1;
-  h.push({ id: newId, name, tag: tag||'', code: code||'', folder, units, cost, manualNav: isNaN(navToday)?null:navToday, manualYest: null });
-
-  // 清空輸入
-  ['newName','newTag','newCode','newUnits','newCost','newNavToday'].forEach(id => document.getElementById(id).value = '');
+function addHolding(){
+  const name=document.getElementById('newName').value.trim();
+  const tag=document.getElementById('newTag').value.trim();
+  const code=document.getElementById('newCode').value.trim();
+  const folder=document.getElementById('newFolder').value;
+  const units=parseFloat(document.getElementById('newUnits').value);
+  const cost=parseFloat(document.getElementById('newCost').value);
+  const navToday=parseFloat(document.getElementById('newNavToday').value);
+  if(!name||!units||!cost){alert('請填入基金名稱、單位數、成本');return;}
+  const h=getEditHoldings();
+  const newId=Math.max(0,...h.map(x=>x.id))+1;
+  h.push({id:newId,name,tag:tag||'',code:code||'',folder,units,cost,manualNav:isNaN(navToday)?null:navToday});
+  ['newName','newTag','newCode','newUnits','newCost','newNavToday'].forEach(id=>document.getElementById(id).value='');
   renderHoldingList();
 }
+function saveAndClose(){if(_holdings){saveHoldings(_holdings);_holdings=null;}closePanel();loadAll();}
 
-function saveAndClose() {
-  if (_holdings) {
-    saveHoldings(_holdings);
-    _holdings = null;
-  }
-  closePanel();
-  loadAll();
-}
-
-// Google Apps Script 需要支援 code+folder 參數，在 GAS 裡 URL 改為：
-// https://www.stockq.org/funds/fund/${folder}/${code}.php
 loadAll();
 </script>
 </body>
